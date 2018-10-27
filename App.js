@@ -28,7 +28,19 @@ const RootStack = createStackNavigator(
 const store = createStore();
 
 AsyncStorage.getItem('task_list')
-  .then(res => store.dispatch(loadTasks(JSON.parse(res) || [])));
+  .then((res) => {
+    const saved = JSON.parse(res);
+    const tasks = saved.tasks || [];
+    const timestamp = saved.timestamp || new Date().getTime();
+    const saveDate = new Date(timestamp);
+    const today = new Date();
+    const timeDiff = Math.abs(saveDate.getTime() - today.getTime());
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    const shouldReset = (saveDate.getDay() === 0 && today.getDay() === 1) // if was saved sunday and today is monday
+                        || diffDays > 6; // or over a week has pasesed
+    const tasksToLoad = shouldReset ? tasks.map(task => ({ ...task, consumed: 0 })) : tasks;
+    store.dispatch(loadTasks(tasksToLoad));
+  });
 
 
 const App = () => (

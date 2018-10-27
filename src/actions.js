@@ -10,7 +10,11 @@ export const REMOVE_TASK = 'REMOVE_TASK';
 const save = action => (dispatch, getState) => {
   dispatch(action);
   const { tasks } = getState();
-  AsyncStorage.setItem('task_list', JSON.stringify(tasks));
+  const dataToSave = {
+    tasks,
+    timestamp: new Date().getTime(),
+  };
+  AsyncStorage.setItem('task_list', JSON.stringify(dataToSave));
 };
 
 export const loadTasks = tasks => ({
