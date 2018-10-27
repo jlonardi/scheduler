@@ -4,7 +4,7 @@ export const msToTime = (ms) => {
   let milliseconds = parseInt((ms % 1000) / 100);
   let seconds = parseInt((ms / 1000) % 60);
   let minutes = parseInt((ms / (1000 * 60)) % 60);
-  let hours  = parseInt((ms / (1000 * 60 * 60)) % 24);
+  let hours  = parseInt(ms / (1000 * 60 * 60));
   return {
     hours,
     minutes,
@@ -17,7 +17,7 @@ export const msToString = (ms) => {
   const { hours, minutes, seconds } = msToTime(ms);
 
   if (hours > 0 || minutes > 9) {
-    return `${hours}h ${minutes % 60}min`;
+    return `${hours}h ${minutes}min ${seconds}s`;
   }
-  return `${minutes}m ${seconds % 60}s`;
+  return `${minutes}m ${seconds}s`;
 };

@@ -28,7 +28,7 @@ const RootStack = createStackNavigator(
 const store = createStore();
 
 AsyncStorage.getItem('task_list')
-  .then(res => store.dispatch(loadTasks(JSON.parse(res))));
+  .then(res => store.dispatch(loadTasks(JSON.parse(res) || [])));
 
 
 const App = () => (

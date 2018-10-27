@@ -22,6 +22,12 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "permissions": [
+        "VIBRATE"
+      ],
+      "package": "com.iaf.scheduler"
     }
   }
 }
