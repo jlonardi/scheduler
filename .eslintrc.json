@@ -18,6 +18,7 @@
         "react/no-did-mount-set-state": false,
         "camelcase": "off",
         "global-require": "off",
+        "radix": "off",
         "class-methods-use-this": "off",
         "max-len":"off"
     },

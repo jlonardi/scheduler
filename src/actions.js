@@ -1,11 +1,11 @@
-import { AsyncStorage } from "react-native"
-import { v4 } from "uuid";
+import { AsyncStorage } from 'react-native';
+import { v4 } from 'uuid';
 
 export const REPLACE_TASKS = 'REPLACE_TASKS';
-export const RESET = "RESET";
-export const ADD_TASK = "ADD_TASK";
-export const UPDATE_TASK_CONSUMATION = "UPDATE_TASK_CONSUMATION";
-export const REMOVE_TASK = 'REMOVE_TASK'
+export const RESET = 'RESET';
+export const ADD_TASK = 'ADD_TASK';
+export const UPDATE_TASK_CONSUMATION = 'UPDATE_TASK_CONSUMATION';
+export const REMOVE_TASK = 'REMOVE_TASK';
 
 const save = action => (dispatch, getState) => {
   dispatch(action);
@@ -29,7 +29,7 @@ export const updateTaskConsume = (consumed, id) => save({
   id
 });
 
-export const removeTask = (id) => save({
+export const removeTask = id => save({
   type: REMOVE_TASK,
   id
 });

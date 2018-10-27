@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
-  StyleSheet,
   Text,
   View,
-  TextInput,
   Button,
   Dimensions,
   Vibration
-} from "react-native";
-import { msToString  } from "../utils/time";
-import { updateTaskConsume } from "../actions";
+} from 'react-native';
+import { msToString } from '../utils/time';
+import { updateTaskConsume } from '../actions';
 
 // const styles = StyleSheet.create({});
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 class TaskOverview extends Component {
   constructor(props) {
@@ -70,8 +69,8 @@ class TaskOverview extends Component {
 
     return (
       <View>
-        <Text style={{ textAlign: "center" }}>{this.props.name}</Text>
-        <Text style={{ textAlign: "center" }}>{msToString(this.props.duration - this.props.consumed)}</Text>
+        <Text style={{ textAlign: 'center' }}>{this.props.name}</Text>
+        <Text style={{ textAlign: 'center' }}>{msToString(this.props.duration - this.props.consumed)}</Text>
 
         {this.props.consumed >= this.props.duration ? (
           <Text>Task Is Completed!</Text>
@@ -79,12 +78,12 @@ class TaskOverview extends Component {
           this.playbackbutton
         )}
 
-        <View style={{ width, height: 35, backgroundColor: "grey" }}>
+        <View style={{ width, height: 35, backgroundColor: 'grey' }}>
           <View
             style={{
               width: progress * width,
               height: 35,
-              backgroundColor: "blue"
+              backgroundColor: 'blue'
             }}
           />
         </View>
@@ -103,16 +102,23 @@ class TaskOverview extends Component {
   }
 }
 
+TaskOverview.propTypes = {
+  update: PropTypes.func,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  duration: PropTypes.number,
+  consumed: PropTypes.number,
+  navigation: PropTypes.object // eslint-disable-line
+};
+
 function mapStateToProps({ tasks }, { navigation }) {
-  const id = navigation.getParam("id");
+  const id = navigation.getParam('id');
   return { ...(tasks.find(task => task.id === id) || {}) };
 }
 
-const mapDispathToProps = dispath => {
-  return {
-    update: (consumed, id) => dispath(updateTaskConsume(consumed, id))
-  };
-};
+const mapDispathToProps = dispath => ({
+  update: (consumed, id) => dispath(updateTaskConsume(consumed, id))
+});
 
 export default connect(
   mapStateToProps,

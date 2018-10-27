@@ -1,26 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { Text, View, TextInput, Button } from 'react-native';
 import { addTask } from '../actions';
 import { timeToMs } from '../utils/time';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1
-  },
-  activity: {
-    color: "black",
-    fontSize: 13
-  }
-});
 
 class AddTask extends Component {
   constructor(props) {
@@ -31,9 +13,9 @@ class AddTask extends Component {
     this.AddTaskToList = this.AddTaskToList.bind(this);
 
     this.state = {
-      name: "",
-      hours: "",
-      minutes: ""
+      name: '',
+      hours: '',
+      minutes: ''
     };
   }
 
@@ -48,15 +30,15 @@ class AddTask extends Component {
     this.props.navigation.navigate('ListView');
   }
 
-  OnNameChange=(name)=> {
+  OnNameChange=(name) => {
     this.setState({ name });
   }
 
-  OnHourChange=(hours)=> {
+  OnHourChange=(hours) => {
     this.setState({ hours });
   }
 
-  OnMinutesChange=(minutes)=> {
+  OnMinutesChange=(minutes) => {
     this.setState({ minutes });
   }
 

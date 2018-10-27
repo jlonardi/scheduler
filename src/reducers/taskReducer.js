@@ -1,6 +1,4 @@
-import { v4 } from 'uuid';
 import { ADD_TASK, UPDATE_TASK_CONSUMATION, REMOVE_TASK, REPLACE_TASKS } from '../actions';
-import { timeToMs } from '../utils/time';
 
 const initialState = [];
 

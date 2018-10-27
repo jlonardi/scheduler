@@ -1,10 +1,10 @@
 export const timeToMs = (hours, minutes) => ((hours * 60) + minutes) * 60 * 1000;
 
 export const msToTime = (ms) => {
-  let milliseconds = parseInt((ms % 1000) / 100);
-  let seconds = parseInt((ms / 1000) % 60);
-  let minutes = parseInt((ms / (1000 * 60)) % 60);
-  let hours  = parseInt(ms / (1000 * 60 * 60));
+  const milliseconds = parseInt((ms % 1000) / 100);
+  const seconds = parseInt((ms / 1000) % 60);
+  const minutes = parseInt((ms / (1000 * 60)) % 60);
+  const hours = parseInt(ms / (1000 * 60 * 60));
   return {
     hours,
     minutes,
