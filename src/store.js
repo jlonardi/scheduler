@@ -9,7 +9,7 @@ export default function initialize() {
   // create the redux store
   const store = createStore(
     reducer,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
   );
 
   return store;

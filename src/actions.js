@@ -24,16 +24,16 @@ export const loadTasks = tasks => ({
 
 export const addTask = ({ name, duration }) => save({
   type: ADD_TASK,
-  payload: { name, duration, id: v4(), consumed: 0 }
+  payload: { name, duration, id: v4(), consumed: 0 },
 });
 
 export const updateTaskConsume = (consumed, id) => save({
   type: UPDATE_TASK_CONSUMATION,
   consumed,
-  id
+  id,
 });
 
 export const removeTask = id => save({
   type: REMOVE_TASK,
-  id
+  id,
 });

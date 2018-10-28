@@ -12,7 +12,6 @@
     "rules": {
         "react/require-default-props": false,
         "react/jsx-filename-extension": false,
-        "comma-dangle": 0,
         "object-curly-newline": 0,
         "import/no-named-as-default": false,
         "react/no-did-mount-set-state": false,

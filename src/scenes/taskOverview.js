@@ -6,7 +6,7 @@ import {
   View,
   Button,
   Dimensions,
-  Vibration
+  Vibration,
 } from 'react-native';
 import { msToString } from '../utils/time';
 import { updateTaskConsume } from '../actions';
@@ -19,7 +19,7 @@ class TaskOverview extends Component {
     super(props);
 
     this.state = {
-      playing: false
+      playing: false,
     };
   }
 
@@ -83,7 +83,7 @@ class TaskOverview extends Component {
             style={{
               width: progress * width,
               height: 35,
-              backgroundColor: 'blue'
+              backgroundColor: 'blue',
             }}
           />
         </View>
@@ -117,10 +117,10 @@ function mapStateToProps({ tasks }, { navigation }) {
 }
 
 const mapDispathToProps = dispath => ({
-  update: (consumed, id) => dispath(updateTaskConsume(consumed, id))
+  update: (consumed, id) => dispath(updateTaskConsume(consumed, id)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispathToProps
+  mapDispathToProps,
 )(TaskOverview);

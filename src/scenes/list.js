@@ -5,7 +5,7 @@ import {
   Button,
   TouchableOpacity,
   Alert,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { removeTask } from '../actions';
@@ -15,9 +15,9 @@ const deleteTask = (id, remove) => {
   Alert.alert('Delete', 'Want to delete this task?', [
     {
       text: 'Cancel',
-      style: 'cancel'
+      style: 'cancel',
     },
-    { text: 'Delete', onPress: () => remove(id) }
+    { text: 'Delete', onPress: () => remove(id) },
   ]);
 };
 
@@ -30,7 +30,7 @@ const List = ({ tasks, navigation, remove }) => (
         onPress={() => navigation.navigate('TaskOverview', { id })}
         style={{
           backgroundColor: 'lightblue',
-          marginBottom: 10
+          marginBottom: 10,
         }}
       >
         <Text style={{ textAlign: 'center', fontWeight: '800' }}>{name}</Text>
@@ -46,7 +46,7 @@ const List = ({ tasks, navigation, remove }) => (
 List.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    duration: PropTypes.number
+    duration: PropTypes.number,
   })),
   remove: PropTypes.func,
   navigation: PropTypes.object // eslint-disable-line
@@ -54,15 +54,15 @@ List.propTypes = {
 
 function mapStateToProps({ tasks }) {
   return {
-    tasks
+    tasks,
   };
 }
 
 const mapDispathToProps = dispatch => ({
-  remove: id => dispatch(removeTask(id))
+  remove: id => dispatch(removeTask(id)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispathToProps
+  mapDispathToProps,
 )(List);

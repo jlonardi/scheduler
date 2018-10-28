@@ -15,7 +15,7 @@ class AddTask extends Component {
     this.state = {
       name: '',
       hours: '',
-      minutes: ''
+      minutes: '',
     };
   }
 
@@ -24,7 +24,7 @@ class AddTask extends Component {
     const minutes = parseInt(this.state.minutes || 0, 10);
     const newTask = {
       name: this.state.name,
-      duration: timeToMs(hours, minutes)
+      duration: timeToMs(hours, minutes),
     };
     this.context.store.dispatch(addTask(newTask));
     this.props.navigation.navigate('ListView');
@@ -75,7 +75,7 @@ class AddTask extends Component {
 }
 
 AddTask.contextTypes = {
-  store: PropTypes.object
+  store: PropTypes.object,
 };
 
 AddTask.propTypes = {
