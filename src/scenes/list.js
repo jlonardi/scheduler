@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Text,
   Button,
   TouchableOpacity,
   Alert,
@@ -32,11 +31,10 @@ const List = ({ tasks, navigation, remove }) => (
           key={id}
           onPress={() => navigation.navigate('TaskOverview', { id })}
           style={{
-            backgroundColor: 'lightblue',
-            marginBottom: 10,
+            marginBottom: 5,
           }}
         >
-          <ProgressBar label={msToString(duration - consumed)} progress={ consumed / duration } />
+          <ProgressBar label={`${name} ${msToString(duration - consumed)}`} progress={consumed / duration} />
         </TouchableOpacity>
       ))}
       <Button title="Add" onPress={() => navigation.navigate('AddTask')} />

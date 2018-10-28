@@ -22,14 +22,19 @@ class AddTask extends Component {
   }
 
   AddTaskToList =() => {
-    const hours = parseInt(this.state.hours || 0, 10);
-    const minutes = parseInt(this.state.minutes || 0, 10);
+    const { hours, minutes, name } = this.state;
+    const { store } = this.context;
+    const { navigation } = this.props;
+
+    const h = parseInt(hours || 0, 10);
+    const m = parseInt(minutes || 0, 10);
     const newTask = {
-      name: this.state.name,
-      duration: timeToMs(hours, minutes),
+      name,
+      duration: timeToMs(h, m),
     };
-    this.context.store.dispatch(addTask(newTask));
-    this.props.navigation.navigate('ListView');
+
+    store.dispatch(addTask(newTask));
+    navigation.navigate('ListView');
   }
 
   OnNameChange=(name) => {
@@ -45,7 +50,7 @@ class AddTask extends Component {
   }
 
   render() {
-    const { name, hours, minutes } = this.state;
+    const { name, hours, minutes, text } = this.state;
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
       <Layout title="New goal" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
@@ -53,20 +58,20 @@ class AddTask extends Component {
           <Text>Activity:</Text>
           <TextInput
             onChangeText={this.OnNameChange}
-            value={this.state.text}
+            value={text}
           />
 
           <Text>Hours:</Text>
           <TextInput
             keyboardType="numeric"
-            value={this.state.hours}
+            value={hours}
             onChangeText={this.OnHourChange}
           />
 
           <Text>Minutes:</Text>
           <TextInput
             keyboardType="numeric"
-            value={this.state.minutes}
+            value={minutes}
             onChangeText={this.OnMinutesChange}
           />
 
@@ -78,7 +83,7 @@ class AddTask extends Component {
 }
 
 AddTask.contextTypes = {
-  store: PropTypes.object,
+  store: PropTypes.object, // eslint-disable-line
 };
 
 AddTask.propTypes = {

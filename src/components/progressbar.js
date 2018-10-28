@@ -1,27 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    height: 30,
+    height: 50,
     backgroundColor: 'lightgray',
     justifyContent: 'flex-start',
+    marginBottom: 10,
+    marginTop: 10,
+    borderRadius: 3,
+    overflow: 'hidden',
   },
-  bar: {
-    backgroundColor: 'blue',
+  text: {
+    position: 'absolute',
+    color: 'white',
+    fontSize: 15,
+    top: 15,
+    left: 30,
+    zIndex: 3,
+    fontFamily: 'Futura-heavy',
   },
-});
-// transform: [{ scaleX: progress + 0.1 }, { translateX: 500 }]
-const ProgressBar = ({ progress, label }) => (
-  <View style={styles.container}>
-    <View style={{ flex: 1, backgroundColor: 'blue', width: `${progress * 100}%` }}>
-      <Text>{label}</Text>
+};
+
+const ProgressBar = ({ progress, label, color = 'red' }) => {
+  const barStyles = {
+    width: `${parseInt(progress * 100)}%`,
+    backgroundColor: color,
+    height: '100%',
+    borderRadius: 3,
+  };
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{label}</Text>
+      <View style={barStyles} />
     </View>
-  </View>
-);
+  );
+};
 
 ProgressBar.propTypes = {
+  color: PropTypes.number,
   progress: PropTypes.number,
   label: PropTypes.string,
 };

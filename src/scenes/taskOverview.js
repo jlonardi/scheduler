@@ -5,7 +5,6 @@ import {
   Text,
   View,
   Button,
-  Dimensions,
   Vibration,
 } from 'react-native';
 import { msToString } from '../utils/time';
@@ -13,8 +12,6 @@ import { updateTaskConsume } from '../actions';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
 
-// const styles = StyleSheet.create({});
-const { width } = Dimensions.get('window');
 
 class TaskOverview extends Component {
   constructor(props) {
@@ -30,7 +27,8 @@ class TaskOverview extends Component {
   }
 
   get playbackbutton() {
-    return this.state.playing ? (
+    const { playing } = this.state;
+    return playing ? (
       <Button onPress={this.stopTask} title="Stop task" />
     ) : (
       <Button onPress={this.startTask} title="Start task" />
@@ -38,6 +36,7 @@ class TaskOverview extends Component {
   }
 
   startTask = () => {
+    const { consumed, duration, id, update } = this.props;
     this.setState({ playing: true });
     let last = new Date().getTime();
     // let passedTimeInMilliseconds = 0;
@@ -45,10 +44,10 @@ class TaskOverview extends Component {
       const current = new Date().getTime();
       const delta = current - last;
       last = current;
-      const updatedConsume = this.props.consumed + delta;
+      const updatedConsume = consumed + delta;
 
-      this.props.update(updatedConsume, this.props.id);
-      if (updatedConsume >= this.props.duration) {
+      update(updatedConsume, id);
+      if (updatedConsume >= duration) {
         this.taskReady();
       }
     }, 1000);
@@ -67,31 +66,27 @@ class TaskOverview extends Component {
   };
 
   render() {
-    const progress = this.props.consumed / this.props.duration;
-
+    const { consumed, duration, name, navigation } = this.props;
+    const progress = consumed / duration;
+    const finished = consumed >= duration;
     return (
-      <Layout title={this.props.name}>
+      <Layout title={name}>
         <View>
-          <Text style={{ textAlign: 'center' }}>{this.props.name}</Text>
-          <Text style={{ textAlign: 'center' }}>{msToString(this.props.duration - this.props.consumed)}</Text>
+          {finished ? <Text>Task Is Completed!</Text> : this.playbackbutton }
 
-          {this.props.consumed >= this.props.duration ? (
-            <Text>Task Is Completed!</Text>
-          ) : (
-            this.playbackbutton
-          )}
+          <ProgressBar progress={progress} label={msToString(duration - consumed)} />
 
-          <ProgressBar progress={progress} label={msToString(this.props.duration - this.props.consumed)} />
-
-          {this.props.consumed >= this.props.duration ? (
-            <Button
-              title="OK!"
-              onPress={() => {
-                Vibration.cancel();
-                this.props.navigation.navigate('ListView');
-              }}
-            />
-          ) : null}
+          { finished
+            ? (
+              <Button
+                title="DONE!"
+                onPress={() => {
+                  Vibration.cancel();
+                  navigation.navigate('ListView');
+                }}
+              />)
+            : null
+            }
         </View>
       </Layout>
     );

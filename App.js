@@ -37,10 +37,12 @@ class App extends Component {
       storeLoaded: false,
     };
   }
+
   componentDidMount() {
     this.loadStore();
     this.loadFonts();
   }
+
   loadFonts = () => {
     Font.loadAsync({
       Archive: require('./assets/fonts/Archive.otf'),
@@ -54,6 +56,7 @@ class App extends Component {
         console.log(err);
       });
   }
+
   loadStore = () => {
     AsyncStorage.getItem('task_list')
       .then((res) => {
@@ -64,9 +67,10 @@ class App extends Component {
         const today = new Date();
         const timeDiff = Math.abs(saveDate.getTime() - today.getTime());
         const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        const shouldReset = (saveDate.getDay() === 0 && today.getDay() >= 0) // if was saved sunday and today is monday
+        const shouldReset = (saveDate.getDay() === 0 && today.getDay() > 0) // if was saved sunday and today is monday
                             || diffDays > 6; // or over a week has pasesed
         const tasksToLoad = shouldReset ? tasks.map(task => ({ ...task, consumed: 0 })) : tasks;
+        console.log(tasksToLoad); // debug stuff
         store.dispatch(loadTasks(tasksToLoad));
         this.setState({ storeLoaded: true });
       })
@@ -81,7 +85,7 @@ class App extends Component {
     if (!fontsLoaded || !storeLoaded) return null;
 
     return (
-      <Provider store={store} >
+      <Provider store={store}>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <RootStack />
         </View>

@@ -18,4 +18,3 @@ function taskReducer(state = initialState, action) {
 }
 
 export default taskReducer;
-
