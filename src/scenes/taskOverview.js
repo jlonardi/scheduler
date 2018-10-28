@@ -28,10 +28,10 @@ const styles = {
   },
   buttonFrame: {
     height: 80,
-    width: 130,
+    width: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: black,
+    borderColor: 'gray',
     borderWidth: 3,
     borderRadius: 5,
   },
@@ -86,13 +86,13 @@ class TaskOverview extends Component {
     return playing ? (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.buttonFrame} onPress={this.stopTask}>
-          <Ionicons name="ios-pause" size={50} color={black} />
+          <Ionicons name="ios-pause" size={50} color="gray" />
         </TouchableOpacity>
       </View>
     ) : (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.buttonFrame} onPress={this.startTask}>
-          <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={50} color={black} />
+          <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={50} color="gray" />
         </TouchableOpacity>
       </View>
     );
@@ -136,7 +136,7 @@ class TaskOverview extends Component {
     const progress = consumed / duration;
     const finished = consumed >= duration;
     return (
-      <Layout title={name}>
+      <Layout title={name} light>
         <View style={styles.container}>
           <ProgressBar color={color} progress={progress} label={msToString(duration - consumed)} />
           {finished ? this.finishedView : this.playbackbutton }

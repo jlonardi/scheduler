@@ -10,14 +10,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const Layout = ({ title, children, icon }) => (
+const Layout = ({ title, children, icon, light }) => (
   <View style={styles.container}>
-    <Title title={title} icon={icon} />
+    <Title title={title} icon={icon} light={light} />
     <View style={styles.container}>{children}</View>
   </View>
 );
 
 Layout.propTypes = {
+  light: PropTypes.bool,
   icon: PropTypes.node,
   title: PropTypes.string,
   children: PropTypes.node,

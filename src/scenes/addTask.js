@@ -74,7 +74,7 @@ class AddTask extends Component {
     const { name, hours, minutes } = this.state;
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
-      <Layout title="Add new" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
+      <Layout title="Add" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
         <ScrollView style={styles.container}>
           <Text style={styles.label}>Activity:</Text>
           <TextInput

@@ -6,16 +6,21 @@ import { black } from '../colors';
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
-    height: 100,
+    height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
     color: black,
-    fontFamily: 'Guthen',
-    fontSize: 70,
-    letterSpacing: 7,
+    fontFamily: 'Futura-title',
+    fontSize: 50,
+    textAlign: 'center',
+  },
+  textLight: {
+    color: black,
+    fontFamily: 'Futura-heavy',
+    fontSize: 35,
     textAlign: 'center',
   },
   icon: {
@@ -27,14 +32,15 @@ const styles = StyleSheet.create({
 
 const Icon = ic => <View style={styles.icon}>{ic}</View>;
 
-const Title = ({ title, icon }) => (
+const Title = ({ title, icon, light }) => (
   <View style={styles.container}>
-    <Text style={styles.text}>{title}</Text>
+    <Text style={light ? styles.textLight : styles.text}>{title}</Text>
     {icon ? Icon(icon) : null}
   </View>
 );
 
 Title.propTypes = {
+  light: PropTypes.bool,
   icon: PropTypes.node,
   title: PropTypes.string,
 };
