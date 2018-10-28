@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { removeTask } from '../actions';
 import { msToString } from '../utils/time';
 import Layout from '../components/layout';
+import ProgressBar from '../components/progressbar';
 
 const deleteTask = (id, remove) => {
   Alert.alert('Delete', 'Want to delete this task?', [
@@ -35,10 +36,7 @@ const List = ({ tasks, navigation, remove }) => (
             marginBottom: 10,
           }}
         >
-          <Text style={{ textAlign: 'center', fontWeight: '800' }}>{name}</Text>
-          <Text style={{ textAlign: 'center' }}>
-            {msToString(duration - consumed)}
-          </Text>
+          <ProgressBar label={msToString(duration - consumed)} progress={ consumed / duration } />
         </TouchableOpacity>
       ))}
       <Button title="Add" onPress={() => navigation.navigate('AddTask')} />

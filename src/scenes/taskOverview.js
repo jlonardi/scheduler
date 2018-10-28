@@ -11,6 +11,7 @@ import {
 import { msToString } from '../utils/time';
 import { updateTaskConsume } from '../actions';
 import Layout from '../components/layout';
+import ProgressBar from '../components/progressbar';
 
 // const styles = StyleSheet.create({});
 const { width } = Dimensions.get('window');
@@ -80,15 +81,7 @@ class TaskOverview extends Component {
             this.playbackbutton
           )}
 
-          <View style={{ width, height: 35, backgroundColor: 'grey' }}>
-            <View
-              style={{
-                width: progress * width,
-                height: 35,
-                backgroundColor: 'blue',
-              }}
-            />
-          </View>
+          <ProgressBar progress={progress} label={msToString(this.props.duration - this.props.consumed)} />
 
           {this.props.consumed >= this.props.duration ? (
             <Button
@@ -115,7 +108,7 @@ TaskOverview.propTypes = {
 };
 
 function mapStateToProps({ tasks }, { navigation }) {
-  const id = navigation.getParam('id');
+  const id = navigation.getParam('id') || '78944b3c-1492-440f-81f7-e41c42fc369f';
   return { ...(tasks.find(task => task.id === id) || {}) };
 }
 
