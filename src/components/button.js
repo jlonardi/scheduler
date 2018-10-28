@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { TouchableHighlight, View, Button } from 'react-native';
 
 const styles = {
-  buttonWrapper: { marginLeft: 30, marginRight: 30, elevation: 5 },
+  buttonWrapper: { elevation: 3 },
 };
 
-const Btn = ({ onPress }) => (
+const Btn = ({ onPress, disabled = false }) => (
   <TouchableHighlight style={styles.buttonWrapper}>
     <View style={{ height: 50 }}>
-      <Button title="Add" onPress={onPress} color="#6699ff" />
+      <Button disabled={disabled} title="Add" onPress={onPress} color="#6699ff" />
     </View>
   </TouchableHighlight>
 );
 
 Btn.propTypes = {
+  disabled: PropTypes.bool,
   onPress: PropTypes.func,
 };
 

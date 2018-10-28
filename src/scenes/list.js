@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
   Alert,
+  View,
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -29,7 +30,9 @@ const styles = {
 
 const List = ({ tasks, navigation, remove }) => (
   <Layout title="Goals">
-    <Btn title="Add" onPress={() => navigation.navigate('AddTask')} />
+    <View style={{ paddingRight: 30, paddingLeft: 30 }}>
+      <Btn title="Add" onPress={() => navigation.navigate('AddTask')} />
+    </View>
     <ScrollView style={styles.list}>
       {tasks.map(({ name, duration, id, consumed, color }) => (
         <TouchableOpacity

@@ -5,4 +5,5 @@ export default {
   third: '#ff6f69',
   fourth: '#ffcc5c',
   fifth: '#03a9f4',
+  black: '#404040',
 };

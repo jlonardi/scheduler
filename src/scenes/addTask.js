@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, TextInput, Button } from 'react-native';
+import { Text, ScrollView, TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { addTask } from '../actions';
 import { timeToMs } from '../utils/time';
 import Layout from '../components/layout';
+import Btn from '../components/button';
+import colors from '../colors';
+
+const styles = {
+  container: {
+    height: 500,
+    padding: 50,
+  },
+  label: {
+    paddingLeft: 5,
+    color: colors.black,
+  },
+  input: {
+    color: colors.black,
+    height: 40,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
+    fontSize: 16,
+    marginBottom: 15,
+  },
+};
 
 class AddTask extends Component {
   constructor(props) {
@@ -54,29 +75,38 @@ class AddTask extends Component {
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
       <Layout title="Add new" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
-        <View>
-          <Text>Activity:</Text>
+        <ScrollView style={styles.container}>
+          <Text style={styles.label}>Activity:</Text>
           <TextInput
+            style={styles.input}
+            underlineColorAndroid={colors.black}
+            selectionColor={colors.fifth}
             onChangeText={this.OnNameChange}
             value={name}
           />
 
-          <Text>Hours:</Text>
+          <Text style={styles.label}>Hours:</Text>
           <TextInput
+            style={styles.input}
+            underlineColorAndroid={colors.black}
+            selectionColor={colors.fifth}
             keyboardType="numeric"
             value={hours}
             onChangeText={this.OnHourChange}
           />
 
-          <Text>Minutes:</Text>
+          <Text style={styles.label}>Minutes:</Text>
           <TextInput
+            style={styles.input}
+            underlineColorAndroid={colors.black}
+            selectionColor={colors.fifth}
             keyboardType="numeric"
             value={minutes}
             onChangeText={this.OnMinutesChange}
           />
 
-          <Button disabled={!enabled} onPress={this.AddTaskToList} title="Add activity" />
-        </View>
+          <Btn disabled={!enabled} onPress={this.AddTaskToList} title="Add activity" />
+        </ScrollView>
       </Layout>
     );
   }
