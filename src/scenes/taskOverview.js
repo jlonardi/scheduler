@@ -70,7 +70,7 @@ class TaskOverview extends Component {
           <Image style={styles.image} source={require('../../assets/star_small.png')} />
         </View>
         <Btn
-          title="DONE!"
+          title="Task Completed!"
           onPress={() => {
             Vibration.cancel();
             navigation.navigate('ListView');

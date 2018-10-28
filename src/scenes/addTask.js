@@ -105,7 +105,7 @@ class AddTask extends Component {
             onChangeText={this.OnMinutesChange}
           />
 
-          <Btn disabled={!enabled} onPress={this.AddTaskToList} title="Add activity" />
+          <Btn disabled={!enabled} onPress={this.AddTaskToList} title="Add task" />
         </ScrollView>
       </Layout>
     );
