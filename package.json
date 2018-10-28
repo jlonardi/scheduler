@@ -1,5 +1,5 @@
 {
-  "name": "empty-project-template",
+  "name": "weekly-task-scheduler",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "@expo/vector-icons": "^8.0.0",
     "expo": "^30.0.1",
     "prop-types": "^15.6.2",
-    "react": "16.3.1",
+    "react": "^16.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
@@ -23,14 +23,13 @@
   "version": "1.0.0",
   "description": "weekly task scheluder",
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^10.0.1",
     "babel-preset-react-native": "^4.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.9.1",
-    "react-test-renderer": "16.3.1"
+    "eslint-plugin-react": "^7.9.1"
   },
   "repository": {
     "type": "git",
