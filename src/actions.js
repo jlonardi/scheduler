@@ -14,7 +14,8 @@ const save = action => (dispatch, getState) => {
     tasks,
     timestamp: new Date().getTime(),
   };
-  AsyncStorage.setItem('task_list', JSON.stringify(dataToSave));
+  AsyncStorage.setItem('task_list', JSON.stringify(dataToSave))
+    .catch(err => console.log(err));
 };
 
 export const loadTasks = tasks => ({

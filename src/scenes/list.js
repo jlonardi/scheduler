@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   TouchableOpacity,
   Alert,
   ScrollView,
@@ -11,6 +10,7 @@ import { removeTask } from '../actions';
 import { msToString } from '../utils/time';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
+import Btn from '../components/button';
 
 const deleteTask = (id, remove) => {
   Alert.alert('Delete', 'Want to delete this task?', [
@@ -22,10 +22,16 @@ const deleteTask = (id, remove) => {
   ]);
 };
 
+const styles = {
+  list: { marginTop: 20, marginBottom: 10, paddingLeft: 30, paddingRight: 30 },
+};
+
+
 const List = ({ tasks, navigation, remove }) => (
-  <Layout title="Weekly goals">
-    <ScrollView>
-      {tasks.map(({ name, duration, id, consumed }) => (
+  <Layout title="Goals">
+    <Btn title="Add" onPress={() => navigation.navigate('AddTask')} />
+    <ScrollView style={styles.list}>
+      {tasks.map(({ name, duration, id, consumed, color }) => (
         <TouchableOpacity
           onLongPress={() => deleteTask(id, remove)}
           key={id}
@@ -34,10 +40,9 @@ const List = ({ tasks, navigation, remove }) => (
             marginBottom: 5,
           }}
         >
-          <ProgressBar label={`${name} ${msToString(duration - consumed)}`} progress={consumed / duration} />
+          <ProgressBar color={color} label={`${name} ${msToString(duration - consumed)}`} progress={consumed / duration} />
         </TouchableOpacity>
       ))}
-      <Button title="Add" onPress={() => navigation.navigate('AddTask')} />
     </ScrollView>
   </Layout>
 );

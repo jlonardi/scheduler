@@ -7,15 +7,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingLeft: 30,
-    paddingRight: 30,
   },
 });
 
 const Layout = ({ title, children, icon }) => (
   <View style={styles.container}>
     <Title title={title} icon={icon} />
-    <View>{children}</View>
+    <View style={styles.container}>{children}</View>
   </View>
 );
 

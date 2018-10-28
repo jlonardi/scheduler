@@ -50,15 +50,15 @@ class AddTask extends Component {
   }
 
   render() {
-    const { name, hours, minutes, text } = this.state;
+    const { name, hours, minutes } = this.state;
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
-      <Layout title="New goal" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
+      <Layout title="Add new" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
         <View>
           <Text>Activity:</Text>
           <TextInput
             onChangeText={this.OnNameChange}
-            value={text}
+            value={name}
           />
 
           <Text>Hours:</Text>

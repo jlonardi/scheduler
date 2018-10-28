@@ -4,16 +4,16 @@ import { View, StyleSheet, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
+    height: 200,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: 'black',
+    color: '#404040',
     fontFamily: 'Guthen',
-    fontSize: 50,
-    letterSpacing: 3,
+    fontSize: 70,
+    letterSpacing: 7,
     textAlign: 'center',
   },
   icon: {

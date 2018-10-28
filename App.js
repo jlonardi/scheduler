@@ -60,7 +60,7 @@ class App extends Component {
   loadStore = () => {
     AsyncStorage.getItem('task_list')
       .then((res) => {
-        const saved = JSON.parse(res);
+        const saved = JSON.parse(res) || {};
         const tasks = saved.tasks || [];
         const timestamp = saved.timestamp || new Date().getTime();
         const saveDate = new Date(timestamp);

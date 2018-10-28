@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
+import colors from '../colors';
 
 const styles = {
   container: {
@@ -25,8 +26,8 @@ const styles = {
 
 const ProgressBar = ({ progress, label, color = 'red' }) => {
   const barStyles = {
-    width: `${parseInt(progress * 100)}%`,
-    backgroundColor: color,
+    width: `${progress * 100}%`,
+    backgroundColor: colors[color] || color,
     height: '100%',
     borderRadius: 3,
   };
@@ -39,7 +40,7 @@ const ProgressBar = ({ progress, label, color = 'red' }) => {
 };
 
 ProgressBar.propTypes = {
-  color: PropTypes.number,
+  color: PropTypes.string,
   progress: PropTypes.number,
   label: PropTypes.string,
 };
