@@ -18,9 +18,10 @@ const RootStack = createStackNavigator(
     initialRouteName: 'ListView',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#737373',
+        backgroundColor: 'white',
       },
-      headerTintColor: 'white',
+      headerBackTitleStyle: { color: 'black' },
+      headerTitleStyle: { color: 'black' },
     },
   }
 );
@@ -36,7 +37,7 @@ AsyncStorage.getItem('task_list')
     const today = new Date();
     const timeDiff = Math.abs(saveDate.getTime() - today.getTime());
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    const shouldReset = (saveDate.getDay() === 0 && today.getDay() === 1) // if was saved sunday and today is monday
+    const shouldReset = (saveDate.getDay() === 0 && today.getDay() >= 0) // if was saved sunday and today is monday
                         || diffDays > 6; // or over a week has pasesed
     const tasksToLoad = shouldReset ? tasks.map(task => ({ ...task, consumed: 0 })) : tasks;
     store.dispatch(loadTasks(tasksToLoad));
@@ -45,7 +46,7 @@ AsyncStorage.getItem('task_list')
 
 const App = () => (
   <Provider store={store} >
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       <RootStack />
     </View>
   </Provider>
