@@ -1,17 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Text,
   View,
-  Button,
+  TouchableOpacity,
+  Image,
   Vibration,
 } from 'react-native';
 import { msToString } from '../utils/time';
 import { updateTaskConsume } from '../actions';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
+import Btn from '../components/button';
+import { black } from '../colors';
 
+const styles = {
+  container: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  buttonContainer: {
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonFrame: {
+    height: 80,
+    width: 130,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: black,
+    borderWidth: 3,
+    borderRadius: 5,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  text: {
+    fontSize: 20,
+    color: black,
+    fontFamily: 'Futura-heavy',
+  },
+};
 
 class TaskOverview extends Component {
   constructor(props) {
@@ -26,12 +59,42 @@ class TaskOverview extends Component {
     this.stopTask();
   }
 
+  get finishedView() {
+    const { navigation } = this.props;
+    return (
+      <View>
+        <View style={{ height: 50, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Text style={styles.text}>Task Is Completed!</Text>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Image style={styles.image} source={require('../../assets/star.jpg')} />
+        </View>
+        <Btn
+          title="DONE!"
+          onPress={() => {
+            Vibration.cancel();
+            navigation.navigate('ListView');
+          }}
+        />
+      </View>
+
+    );
+  }
+
   get playbackbutton() {
     const { playing } = this.state;
     return playing ? (
-      <Button onPress={this.stopTask} title="Stop task" />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonFrame} onPress={this.stopTask}>
+          <Ionicons name="ios-pause" size={50} color={black} />
+        </TouchableOpacity>
+      </View>
     ) : (
-      <Button onPress={this.startTask} title="Start task" />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonFrame} onPress={this.startTask}>
+          <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={50} color={black} />
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -69,27 +132,14 @@ class TaskOverview extends Component {
   };
 
   render() {
-    const { color, consumed, duration, name, navigation } = this.props;
+    const { color, consumed, duration, name } = this.props;
     const progress = consumed / duration;
     const finished = consumed >= duration;
     return (
       <Layout title={name}>
-        <View>
-          {finished ? <Text>Task Is Completed!</Text> : this.playbackbutton }
-
+        <View style={styles.container}>
           <ProgressBar color={color} progress={progress} label={msToString(duration - consumed)} />
-
-          { finished
-            ? (
-              <Button
-                title="DONE!"
-                onPress={() => {
-                  Vibration.cancel();
-                  navigation.navigate('ListView');
-                }}
-              />)
-            : null
-            }
+          {finished ? this.finishedView : this.playbackbutton }
         </View>
       </Layout>
     );

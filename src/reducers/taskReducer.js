@@ -1,4 +1,4 @@
-import colors from '../colors';
+import { palette } from '../colors';
 import { ADD_TASK, UPDATE_TASK_CONSUMATION, REMOVE_TASK, REPLACE_TASKS } from '../actions';
 
 
@@ -14,7 +14,7 @@ const colorPicker = (state) => {
     }
   });
 
-  const colorKeys = Object.keys(colors);
+  const colorKeys = Object.keys(palette);
   let pickedColor = colorKeys[0];
 
   colorKeys.forEach((key) => {

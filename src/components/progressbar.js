@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
-import colors from '../colors';
+import { palette } from '../colors';
 
 const styles = {
   container: {
@@ -27,7 +27,7 @@ const styles = {
 const ProgressBar = ({ progress, label, color = 'red' }) => {
   const barStyles = {
     width: `${progress * 100}%`,
-    backgroundColor: colors[color] || color,
+    backgroundColor: palette[color] || color,
     height: '100%',
     borderRadius: 3,
   };

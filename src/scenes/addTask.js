@@ -6,7 +6,7 @@ import { addTask } from '../actions';
 import { timeToMs } from '../utils/time';
 import Layout from '../components/layout';
 import Btn from '../components/button';
-import colors from '../colors';
+import { black, palette } from '../colors';
 
 const styles = {
   container: {
@@ -15,10 +15,10 @@ const styles = {
   },
   label: {
     paddingLeft: 5,
-    color: colors.black,
+    color: black,
   },
   input: {
-    color: colors.black,
+    color: black,
     height: 40,
     paddingBottom: 10,
     paddingHorizontal: 5,
@@ -79,8 +79,8 @@ class AddTask extends Component {
           <Text style={styles.label}>Activity:</Text>
           <TextInput
             style={styles.input}
-            underlineColorAndroid={colors.black}
-            selectionColor={colors.fifth}
+            underlineColorAndroid={black}
+            selectionColor={palette.fifth}
             onChangeText={this.OnNameChange}
             value={name}
           />
@@ -88,8 +88,8 @@ class AddTask extends Component {
           <Text style={styles.label}>Hours:</Text>
           <TextInput
             style={styles.input}
-            underlineColorAndroid={colors.black}
-            selectionColor={colors.fifth}
+            underlineColorAndroid={black}
+            selectionColor={palette.fifth}
             keyboardType="numeric"
             value={hours}
             onChangeText={this.OnHourChange}
@@ -98,8 +98,8 @@ class AddTask extends Component {
           <Text style={styles.label}>Minutes:</Text>
           <TextInput
             style={styles.input}
-            underlineColorAndroid={colors.black}
-            selectionColor={colors.fifth}
+            underlineColorAndroid={black}
+            selectionColor={palette.fifth}
             keyboardType="numeric"
             value={minutes}
             onChangeText={this.OnMinutesChange}

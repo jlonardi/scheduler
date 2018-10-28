@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Text } from 'react-native';
-import colors from '../colors';
+import { black } from '../colors';
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    marginTop: 30,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: colors.black,
+    color: black,
     fontFamily: 'Guthen',
     fontSize: 70,
     letterSpacing: 7,

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   TouchableOpacity,
   Alert,
   View,
+  Image,
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -24,27 +26,40 @@ const deleteTask = (id, remove) => {
 };
 
 const styles = {
-  list: { marginTop: 20, marginBottom: 10, paddingLeft: 30, paddingRight: 30 },
+  list: { marginTop: 20, marginBottom: 10, paddingLeft: 20, paddingRight: 0 },
 };
 
+const StarIconDone = () => (
+  <View style={{ alignItems: 'center', width: '20%' }}>
+    <Image style={{ height: 80, width: 80 }} source={require('../../assets/star.jpg')} />
+  </View>
+);
+
+const StarIcon = () => (
+  <View style={{ alignItems: 'center', width: '20%', justifyContent: 'center' }}>
+    <FontAwesome name="star" size={50} color="gray" />
+  </View>
+);
 
 const List = ({ tasks, navigation, remove }) => (
   <Layout title="Goals">
-    <View style={{ paddingRight: 30, paddingLeft: 30 }}>
-      <Btn title="Add" onPress={() => navigation.navigate('AddTask')} />
+    <View style={{ paddingRight: 20, paddingLeft: 20, marginTop: 30, width: 200 }}>
+      <Btn title="Add new task" onPress={() => navigation.navigate('AddTask')} />
     </View>
     <ScrollView style={styles.list}>
       {tasks.map(({ name, duration, id, consumed, color }) => (
-        <TouchableOpacity
-          onLongPress={() => deleteTask(id, remove)}
-          key={id}
-          onPress={() => navigation.navigate('TaskOverview', { id })}
-          style={{
-            marginBottom: 5,
-          }}
-        >
-          <ProgressBar color={color} label={`${name} ${msToString(duration - consumed)}`} progress={consumed / duration} />
-        </TouchableOpacity>
+        <View key={id} style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onLongPress={() => deleteTask(id, remove)}
+            onPress={() => navigation.navigate('TaskOverview', { id })}
+            style={{
+              width: '80%',
+            }}
+          >
+            <ProgressBar color={color} label={`${name} ${msToString(duration - consumed)}`} progress={consumed / duration} />
+          </TouchableOpacity>
+          { consumed >= duration ? StarIconDone() : StarIcon()}
+        </View>
       ))}
     </ScrollView>
   </Layout>
