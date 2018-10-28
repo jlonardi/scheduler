@@ -67,7 +67,7 @@ class TaskOverview extends Component {
           <Text style={styles.text}>Task Is Completed!</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
-          <Image style={styles.image} source={require('../../assets/star.jpg')} />
+          <Image style={styles.image} source={require('../../assets/star_small.png')} />
         </View>
         <Btn
           title="DONE!"

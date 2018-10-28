@@ -31,7 +31,7 @@ const styles = {
 
 const StarIconDone = () => (
   <View style={{ alignItems: 'center', width: '20%' }}>
-    <Image style={{ height: 80, width: 80 }} source={require('../../assets/star.jpg')} />
+    <Image style={{ height: 80, width: 80 }} source={require('../../assets/star_small.png')} />
   </View>
 );
 
