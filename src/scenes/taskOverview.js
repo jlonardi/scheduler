@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { msToString } from '../utils/time';
 import { updateTaskConsume } from '../actions';
+import Layout from '../components/layout';
 
 // const styles = StyleSheet.create({});
 const { width } = Dimensions.get('window');
@@ -68,36 +69,38 @@ class TaskOverview extends Component {
     const progress = this.props.consumed / this.props.duration;
 
     return (
-      <View>
-        <Text style={{ textAlign: 'center' }}>{this.props.name}</Text>
-        <Text style={{ textAlign: 'center' }}>{msToString(this.props.duration - this.props.consumed)}</Text>
+      <Layout title={this.props.name}>
+        <View>
+          <Text style={{ textAlign: 'center' }}>{this.props.name}</Text>
+          <Text style={{ textAlign: 'center' }}>{msToString(this.props.duration - this.props.consumed)}</Text>
 
-        {this.props.consumed >= this.props.duration ? (
-          <Text>Task Is Completed!</Text>
-        ) : (
-          this.playbackbutton
-        )}
+          {this.props.consumed >= this.props.duration ? (
+            <Text>Task Is Completed!</Text>
+          ) : (
+            this.playbackbutton
+          )}
 
-        <View style={{ width, height: 35, backgroundColor: 'grey' }}>
-          <View
-            style={{
-              width: progress * width,
-              height: 35,
-              backgroundColor: 'blue',
-            }}
-          />
+          <View style={{ width, height: 35, backgroundColor: 'grey' }}>
+            <View
+              style={{
+                width: progress * width,
+                height: 35,
+                backgroundColor: 'blue',
+              }}
+            />
+          </View>
+
+          {this.props.consumed >= this.props.duration ? (
+            <Button
+              title="OK!"
+              onPress={() => {
+                Vibration.cancel();
+                this.props.navigation.navigate('ListView');
+              }}
+            />
+          ) : null}
         </View>
-
-        {this.props.consumed >= this.props.duration ? (
-          <Button
-            title="OK!"
-            onPress={() => {
-              Vibration.cancel();
-              this.props.navigation.navigate('ListView');
-            }}
-          />
-        ) : null}
-      </View>
+      </Layout>
     );
   }
 }

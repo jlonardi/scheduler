@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, TextInput, Button } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { addTask } from '../actions';
 import { timeToMs } from '../utils/time';
+import Layout from '../components/layout';
 
 class AddTask extends Component {
   constructor(props) {
@@ -46,30 +48,31 @@ class AddTask extends Component {
     const { name, hours, minutes } = this.state;
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
-      <View>
-        <Text>Activity:</Text>
-        <TextInput
-          onChangeText={this.OnNameChange}
-          value={this.state.text}
-        />
+      <Layout title="New goal" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
+        <View>
+          <Text>Activity:</Text>
+          <TextInput
+            onChangeText={this.OnNameChange}
+            value={this.state.text}
+          />
 
-        <Text>Hours:</Text>
-        <TextInput
-          keyboardType="numeric"
-          value={this.state.hours}
-          onChangeText={this.OnHourChange}
-        />
+          <Text>Hours:</Text>
+          <TextInput
+            keyboardType="numeric"
+            value={this.state.hours}
+            onChangeText={this.OnHourChange}
+          />
 
-        <Text>Minutes:</Text>
-        <TextInput
-          keyboardType="numeric"
-          value={this.state.minutes}
-          onChangeText={this.OnMinutesChange}
-        />
+          <Text>Minutes:</Text>
+          <TextInput
+            keyboardType="numeric"
+            value={this.state.minutes}
+            onChangeText={this.OnMinutesChange}
+          />
 
-        <Button disabled={!enabled} onPress={this.AddTaskToList} title="Add activity" />
-
-      </View>
+          <Button disabled={!enabled} onPress={this.AddTaskToList} title="Add activity" />
+        </View>
+      </Layout>
     );
   }
 }

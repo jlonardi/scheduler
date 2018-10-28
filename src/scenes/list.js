@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { removeTask } from '../actions';
 import { msToString } from '../utils/time';
+import Layout from '../components/layout';
 
 const deleteTask = (id, remove) => {
   Alert.alert('Delete', 'Want to delete this task?', [
@@ -22,25 +23,27 @@ const deleteTask = (id, remove) => {
 };
 
 const List = ({ tasks, navigation, remove }) => (
-  <ScrollView>
-    {tasks.map(({ name, duration, id, consumed }) => (
-      <TouchableOpacity
-        onLongPress={() => deleteTask(id, remove)}
-        key={id}
-        onPress={() => navigation.navigate('TaskOverview', { id })}
-        style={{
-          backgroundColor: 'lightblue',
-          marginBottom: 10,
-        }}
-      >
-        <Text style={{ textAlign: 'center', fontWeight: '800' }}>{name}</Text>
-        <Text style={{ textAlign: 'center' }}>
-          {msToString(duration - consumed)}
-        </Text>
-      </TouchableOpacity>
-    ))}
-    <Button title="Add" onPress={() => navigation.navigate('AddTask')} />
-  </ScrollView>
+  <Layout title="Weekly goals">
+    <ScrollView>
+      {tasks.map(({ name, duration, id, consumed }) => (
+        <TouchableOpacity
+          onLongPress={() => deleteTask(id, remove)}
+          key={id}
+          onPress={() => navigation.navigate('TaskOverview', { id })}
+          style={{
+            backgroundColor: 'lightblue',
+            marginBottom: 10,
+          }}
+        >
+          <Text style={{ textAlign: 'center', fontWeight: '800' }}>{name}</Text>
+          <Text style={{ textAlign: 'center' }}>
+            {msToString(duration - consumed)}
+          </Text>
+        </TouchableOpacity>
+      ))}
+      <Button title="Add" onPress={() => navigation.navigate('AddTask')} />
+    </ScrollView>
+  </Layout>
 );
 
 List.propTypes = {
