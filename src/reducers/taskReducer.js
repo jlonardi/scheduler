@@ -35,7 +35,10 @@ function taskReducer(state = initialState, action) {
     case ADD_TASK:
       return [...state, { ...action.payload, color: colorPicker(state) }];
     case UPDATE_TASK_CONSUMATION:
-      return state.map(task => (task.id === action.id ? { ...task, consumed: action.consumed } : task));
+      return state.map(task => (task.id === action.id ? {
+        ...task,
+        consumed: task.duration < action.consumed ? task.duration : action.consumed }
+        : task));
     case REPLACE_TASKS:
       return action.payload;
     case REMOVE_TASK:

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Weekly tasks scheduler",
+    "name": "Weekly task tracker",
     "description": "Keep track of your weekly tasks.",
-    "slug": "weekly-tasks-scheduler",
+    "slug": "weekly-task-tracker",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],

@@ -5,8 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   Text,
   View,
+  AppState,
   TouchableOpacity,
   Image,
+  AsyncStorage,
   Vibration,
 } from 'react-native';
 import { msToString } from '../utils/time';
@@ -55,6 +57,47 @@ class TaskOverview extends Component {
     };
   }
 
+  componentDidMount() {
+    const { navigation } = this.props;
+    const resume = navigation.getParam('resume');
+    if (resume) {
+      this.startTask();
+    }
+
+    AppState.addEventListener('change', async (state) => {
+      const { playing } = this.state;
+      if (state === 'active') {
+        const saved = await AsyncStorage.getItem('saved_timer');
+        console.log(saved);
+        if (saved) {
+          const { update, consumed } = this.props;
+          const { id, timestamp } = JSON.parse(saved);
+          const delta = new Date().getTime() - timestamp;
+          const updatedConsumed = consumed + delta;
+
+          await AsyncStorage.removeItem('saved_timer');
+
+          update(updatedConsumed, id);
+          this.startTask();
+        }
+      }
+
+      if (state === 'background') {
+        if (playing) {
+          const { id } = this.props;
+
+          await AsyncStorage.setItem('saved_timer', JSON.stringify({
+            id,
+            timestamp: new Date().getTime(),
+          }));
+
+
+          this.stopTask();
+        }
+      }
+    });
+  }
+
   componentWillUnmount() {
     this.stopTask();
   }
@@ -101,7 +144,7 @@ class TaskOverview extends Component {
   startTask = () => {
     this.setState({ playing: true });
     let last = new Date().getTime();
-
+    console.log('start task');
     this.interval = setInterval(() => {
       const { consumed, duration, id, update } = this.props;
       const current = new Date().getTime();
@@ -120,13 +163,14 @@ class TaskOverview extends Component {
   };
 
   stopTask = () => {
+    console.log('task stopped');
     clearInterval(this.interval);
     this.setState({ playing: false });
   };
 
   taskReady = () => {
     this.stopTask();
-    const pattern = [400, 1000, 400, 1000, 0];
+    const pattern = [400, 1000, 400, 1000];
     Vibration.vibrate(pattern, true);
     // Something!
   };
