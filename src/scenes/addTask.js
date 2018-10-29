@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, ScrollView, TextInput } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { addTask } from '../actions';
 import { timeToMs } from '../utils/time';
 import Layout from '../components/layout';
 import Btn from '../components/button';
-import { black, palette } from '../colors';
+import { black, palette, title } from '../colors';
 
 const styles = {
   container: {
@@ -28,6 +28,13 @@ const styles = {
 };
 
 class AddTask extends Component {
+  static navigationOptions = {
+    title: 'Add New Task',
+    headerTitleStyle: {
+      color: title,
+    },
+  };
+
   constructor(props) {
     super(props);
     this.OnNameChange = this.OnNameChange.bind(this);
@@ -74,7 +81,7 @@ class AddTask extends Component {
     const { name, hours, minutes } = this.state;
     const enabled = (parseInt(hours || 0, 10) + parseInt(minutes || 0, 10)) > 0 && name.length > 0;
     return (
-      <Layout title="Add" icon={<MaterialIcons name="stars" size={50} color="lightgray" />}>
+      <Layout title="Add" icon={<FontAwesome name="star" size={50} color="gray" />}>
         <ScrollView style={styles.container}>
           <Text style={styles.label}>Activity:</Text>
           <TextInput

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons';
 import {
@@ -15,7 +15,7 @@ import { msToString } from '../utils/time';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
 import Btn from '../components/button';
-import { black } from '../colors';
+import { title } from '../colors';
 
 const deleteTask = (id, remove) => {
   Alert.alert('Delete', 'Want to delete this task?', [
@@ -30,7 +30,7 @@ const deleteTask = (id, remove) => {
 const styles = {
   list: { marginTop: 20, marginBottom: 10, paddingLeft: 20, paddingRight: 0 },
   text: {
-    color: black,
+    color: title,
     fontSize: 15,
     zIndex: 3,
     fontFamily: 'Futura-heavy',
@@ -39,7 +39,7 @@ const styles = {
 
 const StarIconDone = () => (
   <View style={{ alignItems: 'center', width: '20%' }}>
-    <Image style={{ height: 80, width: 80 }} source={require('../../assets/star_small.png')} />
+    <Image style={{ height: 80, width: 80, marginTop: -10 }} source={require('../../assets/star_small.png')} />
   </View>
 );
 
@@ -49,33 +49,45 @@ const StarIcon = () => (
   </View>
 );
 
-const List = ({ tasks, navigation, remove }) => (
-  <Layout title="Tasks">
-    <View style={{ paddingRight: 20, paddingLeft: 20, marginTop: 30, width: 200 }}>
-      <Btn title="Add new task" onPress={() => navigation.navigate('AddTask')} />
-    </View>
-    <ScrollView style={styles.list}>
-      {tasks.map(({ name, duration, id, consumed, color }) => (
-        <View key={id} style={{ marginTop: 5 }}>
-          <Text style={styles.text}>{name}</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              onLongPress={() => deleteTask(id, remove)}
-              onPress={() => navigation.navigate('TaskOverview', { id })}
-              style={{
-                width: '80%',
-              }}
-            >
-              <ProgressBar color={color} label={msToString(duration - consumed)} progress={consumed / duration} />
-            </TouchableOpacity>
-            { consumed >= duration ? StarIconDone() : StarIcon()}
+class List extends Component {
+  static navigationOptions = {
+    title: 'Weekly Tasks',
+    headerTitleStyle: {
+      color: title,
+    },
+  };
 
-          </View>
+  render() {
+    const { tasks, navigation, remove } = this.props;
+    return (
+      <Layout title="Tasks">
+        <View style={{ paddingRight: 20, paddingLeft: 20, marginTop: 30, alignItems: 'center' }}>
+          <Btn title="Add new task" onPress={() => navigation.navigate('AddTask')} />
         </View>
-      ))}
-    </ScrollView>
-  </Layout>
-);
+        <ScrollView style={styles.list}>
+          {tasks.map(({ name, duration, id, consumed, color }) => (
+            <View key={id} style={{ marginTop: 5 }}>
+              <Text style={styles.text}>{name}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <TouchableOpacity
+                  onLongPress={() => deleteTask(id, remove)}
+                  onPress={() => navigation.navigate('TaskOverview', { id })}
+                  style={{
+                    width: '80%',
+                  }}
+                >
+                  <ProgressBar color={color} label={msToString(duration - consumed)} progress={consumed / duration} />
+                </TouchableOpacity>
+                { consumed >= duration ? StarIconDone() : StarIcon()}
+
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </Layout>
+    );
+  }
+}
 
 List.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.shape({

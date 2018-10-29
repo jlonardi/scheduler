@@ -8,9 +8,9 @@ const styles = {
     height: 50,
     backgroundColor: 'lightgray',
     justifyContent: 'flex-start',
-    marginBottom: 10,
-    marginTop: 10,
-    borderRadius: 3,
+    marginBottom: 5,
+    marginTop: 5,
+    borderRadius: 5,
     overflow: 'hidden',
   },
   text: {

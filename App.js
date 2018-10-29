@@ -9,6 +9,7 @@ import TaskOverview from './src/scenes/taskOverview';
 import ListView from './src/scenes/list';
 import createStore from './src/store';
 import { loadTasks, updateTaskConsume } from './src/actions';
+import { header } from './src/colors';
 
 const RootStack = createStackNavigator(
   {

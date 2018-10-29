@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Text } from 'react-native';
-import { black } from '../colors';
+import { black, title as titleColor } from '../colors';
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
-    height: 150,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: black,
+    color: titleColor,
     fontFamily: 'Futura-title',
     fontSize: 50,
     textAlign: 'center',

@@ -1,16 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, View, Button } from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
+import { button } from '../colors';
 
 const styles = {
-  buttonWrapper: { elevation: 3 },
+  container: {
+    height: 50,
+    minWidth: 200,
+    elevation: 5,
+    borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 17,
+    paddingLeft: 25,
+    paddingRight: 25,
+    fontWeight: 'bold',
+    color: 'white',
+    fontFamily: 'Futura-heavy',
+  },
 };
 
 const Btn = ({ title, onPress, disabled = false }) => (
-  <TouchableHighlight style={styles.buttonWrapper}>
-    <View style={{ height: 50 }}>
-      <Button disabled={disabled} title={title} onPress={onPress} color="#6699ff" />
-    </View>
+  <TouchableHighlight onPress={disabled ? undefined : onPress} style={{ ...styles.container, backgroundColor: disabled ? 'lightgray' : button }}>
+    <Text style={styles.text}>{title.toUpperCase()}</Text>
   </TouchableHighlight>
 );
 

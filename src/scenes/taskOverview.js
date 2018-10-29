@@ -16,7 +16,7 @@ import { updateTaskConsume } from '../actions';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
 import Btn from '../components/button';
-import { black } from '../colors';
+import { black, title } from '../colors';
 
 const styles = {
   container: {
@@ -29,26 +29,32 @@ const styles = {
     alignItems: 'center',
   },
   buttonFrame: {
-    height: 80,
-    width: 100,
+    height: 200,
+    width: 200,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'gray',
-    borderWidth: 3,
-    borderRadius: 5,
   },
   image: {
     width: 200,
     height: 200,
   },
   text: {
-    fontSize: 20,
+    fontSize: 25,
+    marginTop: 15,
+    marginBottom: 15,
     color: black,
     fontFamily: 'Futura-heavy',
   },
 };
 
 class TaskOverview extends Component {
+  static navigationOptions = {
+    title: 'Consume Task',
+    headerTitleStyle: {
+      color: title,
+    },
+  };
+
   constructor(props) {
     super(props);
 
@@ -106,8 +112,8 @@ class TaskOverview extends Component {
     const { navigation } = this.props;
     return (
       <View>
-        <View style={{ height: 50, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-          <Text style={styles.text}>Task Is Completed!</Text>
+        <View style={{ height: 70, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <Text style={styles.text}>Task Completed!</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
           <Image style={styles.image} source={require('../../assets/star_small.png')} />
@@ -129,13 +135,13 @@ class TaskOverview extends Component {
     return playing ? (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.buttonFrame} onPress={this.stopTask}>
-          <Ionicons name="ios-pause" size={50} color="gray" />
+          <Ionicons name="ios-pause" size={125} color={black} />
         </TouchableOpacity>
       </View>
     ) : (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.buttonFrame} onPress={this.startTask}>
-          <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={50} color="gray" />
+          <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={125} color={black} />
         </TouchableOpacity>
       </View>
     );

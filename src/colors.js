@@ -1,9 +1,13 @@
 export const palette = {
-  first: '#96ceb4',
-  second: '#ffeead',
-  third: '#ff6f69',
-  fourth: '#ffcc5c',
-  fifth: '#03a9f4',
+  first: '#e86e42',
+  second: '#425080',
+  third: '#f9c352',
+  fourth: '#c2e09e',
+  fifth: '#8cc2e4',
 };
 
-export const black = '#404040';
+// export const black = '#0e202c';
+export const button = '#607d8b';
+export const title = '#485866';
+export const header = '#4a4644';
+export const black = '#485866';
