@@ -12,6 +12,7 @@ const styles = {
     marginTop: 5,
     borderRadius: 5,
     overflow: 'hidden',
+    elevation: 1,
   },
   text: {
     position: 'absolute',
@@ -29,6 +30,7 @@ const ProgressBar = ({ progress, label, color = 'red' }) => {
     width: `${progress * 100}%`,
     backgroundColor: palette[color] || color,
     height: '100%',
+    elevation: 1,
     borderRadius: 3,
   };
   return (

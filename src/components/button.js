@@ -7,7 +7,7 @@ const styles = {
   container: {
     height: 50,
     minWidth: 200,
-    elevation: 5,
+    elevation: 3,
     borderRadius: 3,
     justifyContent: 'center',
     alignItems: 'center',

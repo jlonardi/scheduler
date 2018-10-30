@@ -32,6 +32,7 @@ const styles = {
   text: {
     color: title,
     fontSize: 15,
+    marginBottom: 2,
     zIndex: 3,
     fontFamily: 'Futura-heavy',
   },
