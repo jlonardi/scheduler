@@ -163,7 +163,7 @@ class TaskOverview extends Component {
 
       update(updatedConsume, id);
       if (updatedConsume >= duration) {
-        this.taskReady();
+        this.stopTask();
       }
     }, 1000);
   };
@@ -172,13 +172,6 @@ class TaskOverview extends Component {
     console.log('task stopped');
     clearInterval(this.interval);
     this.setState({ playing: false });
-  };
-
-  taskReady = () => {
-    this.stopTask();
-    const pattern = [400, 1000, 400, 1000];
-    Vibration.vibrate(pattern, true);
-    // Something!
   };
 
   render() {
