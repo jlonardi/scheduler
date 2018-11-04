@@ -9,7 +9,6 @@ import TaskOverview from './src/scenes/taskOverview';
 import ListView from './src/scenes/list';
 import createStore from './src/store';
 import { loadTasks, updateTaskConsume } from './src/actions';
-import { header } from './src/colors';
 
 const RootStack = createStackNavigator(
   {
@@ -90,9 +89,10 @@ class App extends Component {
         const delta = new Date().getTime() - timestamp;
         const updatedConsumed = consumed + delta;
 
+        store.dispatch(updateTaskConsume(updatedConsumed, id));
+
         await AsyncStorage.removeItem('saved_timer');
 
-        store.dispatch(updateTaskConsume(updatedConsumed, id));
         NavigatorService.navigate('TaskOverview', { resume: true, id });
       }
     } catch (err) {

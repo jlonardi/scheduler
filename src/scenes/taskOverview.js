@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   Text,
   View,
-  AppState,
   TouchableOpacity,
   Image,
   AsyncStorage,
@@ -69,39 +68,6 @@ class TaskOverview extends Component {
     if (resume) {
       this.startTask();
     }
-
-    AppState.addEventListener('change', async (state) => {
-      const { playing } = this.state;
-      if (state === 'active') {
-        const saved = await AsyncStorage.getItem('saved_timer');
-        console.log(saved);
-        if (saved) {
-          const { update, consumed } = this.props;
-          const { id, timestamp } = JSON.parse(saved);
-          const delta = new Date().getTime() - timestamp;
-          const updatedConsumed = consumed + delta;
-
-          await AsyncStorage.removeItem('saved_timer');
-
-          update(updatedConsumed, id);
-          this.startTask();
-        }
-      }
-
-      if (state === 'background') {
-        if (playing) {
-          const { id } = this.props;
-
-          await AsyncStorage.setItem('saved_timer', JSON.stringify({
-            id,
-            timestamp: new Date().getTime(),
-          }));
-
-
-          this.stopTask();
-        }
-      }
-    });
   }
 
   componentWillUnmount() {
@@ -147,12 +113,19 @@ class TaskOverview extends Component {
     );
   }
 
-  startTask = () => {
+  startTask = async () => {
+    const { id } = this.props;
     this.setState({ playing: true });
     let last = new Date().getTime();
+
+    await AsyncStorage.setItem('saved_timer', JSON.stringify({
+      id,
+      timestamp: last,
+    }));
+
     console.log('start task');
     this.interval = setInterval(() => {
-      const { consumed, duration, id, update } = this.props;
+      const { consumed, duration, update } = this.props;
       const current = new Date().getTime();
       const delta = current - last;
 
@@ -168,9 +141,12 @@ class TaskOverview extends Component {
     }, 1000);
   };
 
-  stopTask = () => {
+  stopTask = async () => {
     console.log('task stopped');
     clearInterval(this.interval);
+
+    await AsyncStorage.removeItem('saved_timer');
+
     this.setState({ playing: false });
   };
 
