@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import {
+  Alert,
   Text,
   View,
   TouchableOpacity,
@@ -11,7 +12,7 @@ import {
   Vibration,
 } from 'react-native';
 import { msToString } from '../utils/time';
-import { updateTaskConsume } from '../actions';
+import * as actions from '../actions';
 import Layout from '../components/layout';
 import ProgressBar from '../components/progressbar';
 import Btn from '../components/button';
@@ -45,6 +46,17 @@ const styles = {
     fontFamily: 'Futura-heavy',
   },
 };
+
+const resetConfirm = (id, reset) => {
+  Alert.alert('Reset', 'Want to reset this task?', [
+    {
+      text: 'Cancel',
+      style: 'cancel',
+    },
+    { text: 'Reset', onPress: () => reset(id) },
+  ]);
+};
+
 
 class TaskOverview extends Component {
   static navigationOptions = {
@@ -98,15 +110,24 @@ class TaskOverview extends Component {
 
   get playbackbutton() {
     const { playing } = this.state;
+    const { id, resetTask } = this.props;
     return playing ? (
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonFrame} onPress={this.stopTask}>
+        <TouchableOpacity
+          style={styles.buttonFrame}
+          onLongPress={() => resetConfirm(id, resetTask)}
+          onPress={this.stopTask}
+        >
           <Ionicons name="ios-pause" size={125} color={black} />
         </TouchableOpacity>
       </View>
     ) : (
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonFrame} onPress={this.startTask}>
+        <TouchableOpacity
+          style={styles.buttonFrame}
+          onLongPress={() => resetConfirm(id, resetTask)}
+          onPress={this.startTask}
+        >
           <Ionicons style={{ marginLeft: 5 }} name="ios-play" size={125} color={black} />
         </TouchableOpacity>
       </View>
@@ -167,6 +188,7 @@ class TaskOverview extends Component {
 
 TaskOverview.propTypes = {
   update: PropTypes.func,
+  resetTask: PropTypes.func,
   name: PropTypes.string,
   color: PropTypes.string,
   id: PropTypes.string,
@@ -181,8 +203,9 @@ function mapStateToProps({ tasks }, { navigation }) {
   return task;
 }
 
-const mapDispathToProps = dispath => ({
-  update: (consumed, id) => dispath(updateTaskConsume(consumed, id)),
+const mapDispathToProps = dispatch => ({
+  update: (consumed, id) => dispatch(actions.updateTaskConsume(consumed, id)),
+  resetTask: id => dispatch(actions.resetTask(id)),
 });
 
 export default connect(

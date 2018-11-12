@@ -1,5 +1,5 @@
 import { palette } from '../colors';
-import { ADD_TASK, UPDATE_TASK_CONSUMATION, REMOVE_TASK, REPLACE_TASKS } from '../actions';
+import { ADD_TASK, UPDATE_TASK_CONSUMATION, REMOVE_TASK, REPLACE_TASKS, RESET_TASK } from '../actions';
 
 
 const colorPicker = (state) => {
@@ -41,6 +41,8 @@ function taskReducer(state = initialState, action) {
         : task));
     case REPLACE_TASKS:
       return action.payload;
+    case RESET_TASK:
+      return state.map(task => (task.id === action.id ? { ...task, consumed: 0 } : task));
     case REMOVE_TASK:
       return state.filter(x => x.id !== action.id);
     default:

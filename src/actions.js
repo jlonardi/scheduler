@@ -6,6 +6,7 @@ export const RESET = 'RESET';
 export const ADD_TASK = 'ADD_TASK';
 export const UPDATE_TASK_CONSUMATION = 'UPDATE_TASK_CONSUMATION';
 export const REMOVE_TASK = 'REMOVE_TASK';
+export const RESET_TASK = 'RESET_TASK';
 
 const save = action => (dispatch, getState) => {
   dispatch(action);
@@ -36,5 +37,10 @@ export const updateTaskConsume = (consumed, id) => save({
 
 export const removeTask = id => save({
   type: REMOVE_TASK,
+  id,
+});
+
+export const resetTask = id => save({
+  type: RESET_TASK,
   id,
 });
