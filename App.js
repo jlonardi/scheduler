@@ -70,7 +70,8 @@ class App extends Component {
       const today = new Date();
       const timeDiff = Math.abs(saveDate.getTime() - today.getTime());
       const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      const shouldReset = (saveDate.getDay() === 0 && today.getDay() > 0) // if was saved sunday and today is monday
+      const shouldReset = (saveDate.getDay() !== 0 && today.getDay() < saveDate.getDay()) // if today is not sunday and the save date was a weekday after this day
+                          || (saveDate.getDay() === 0 && today.getDay() !== 0) // was saved sunday and today is any other day
                           || diffDays > 6; // or over a week has pasesed
       const tasksToLoad = shouldReset ? tasks.map(task => ({ ...task, consumed: 0 })) : tasks;
       console.log(tasksToLoad); // debug stuff
